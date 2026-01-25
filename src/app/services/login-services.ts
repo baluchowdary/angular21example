@@ -4,6 +4,7 @@ import { EnvironmentConst } from '../../EnvironmentFolder/EnvironmentFile';
 import { ConstantFile } from '../../ConstantFolder/ConstantFile';
 import { Observable } from 'rxjs';
 import { LoginObject } from '../model/class/login-object';
+import { DbloginObject } from '../model/class/dblogin-object';
 
 
 @Injectable({
@@ -14,9 +15,10 @@ export class LoginServices {
   //http = Inject(HttpClient);
   constructor(private http: HttpClient) {}
 
-
-  loadLoginService(): Observable<LoginObject> {
-    return this.http.get<LoginObject>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_LOGIN_DETAILS);
+  loadLoginService(username: string): Observable<DbloginObject> {
+   // debugger;
+    console.log('2-username in Service:', username);
+    return this.http.get<DbloginObject>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_LOGIN_DETAILS + `?username=${username}`);
   }
   
 }
