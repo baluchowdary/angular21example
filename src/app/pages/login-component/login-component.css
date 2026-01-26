@@ -76,6 +76,10 @@
   .form input.password{
     margin-bottom: 5px;
   }
+
+  .form input.cnfpassword{
+    margin-bottom: 5px;
+  }
   
   .login_btn{
     font-size: 20px;

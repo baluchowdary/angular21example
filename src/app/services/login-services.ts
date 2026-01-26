@@ -20,5 +20,10 @@ export class LoginServices {
     console.log('2-username in Service:', username);
     return this.http.get<DbloginObject>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_LOGIN_DETAILS + `?username=${username}`);
   }
-  
+  saveLoginService(loginObj: LoginObject): Observable<DbloginObject> {
+    //debugger;
+    console.log('2- save Login Object in Service:', loginObj);
+    return this.http.post<DbloginObject>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.SAVE_LOGIN_DETAILS, loginObj);
+  }
+
 }

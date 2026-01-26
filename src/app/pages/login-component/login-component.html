@@ -1,29 +1,33 @@
 <div class="parent">
     <div class="card">
-        <h2>Login Form</h2>
-    
-        <!-- SE CONNECTER / S'INSCRIRE -->
-        <div class="login_register">
-            <a href="" class="login" target="blank">Login</a>
-            <a href="" class="register" target="blank">Signup</a>
-        </div>
-    
-        <!-- FORMULAIRE -->
-        <form class="form">
-            <input type="username" name="username" [(ngModel)]="loginObj.username" placeholder="username" class="username">
-            <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="password" class="password">
-        </form>
-    
-        <!-- MOT DE PASSE OUBLIE ? -->
-        <a href="#" class="fp">Forgot password?</a>
-    
-        <!-- BOUTTON LOGIN -->
-        <button type="button" (click)="getLoginDetails()" class="login_btn">Login</button>
-    
-        <!-- PIED DE LA CARD -->
-        <div class="footer_card">
-            <p>Not a member?</p>
-            <a href="#">Singup now</a>
-        </div>
+        <h2>{{ isRegistered ? 'Login Form' : 'Registration Form' }}</h2>
+
+        @if(isRegistered) {
+            <form class="form">
+                <input type="text" name="username" [(ngModel)]="loginObj.username" placeholder="Username" class="username">
+                <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password" class="password">
+                
+                <button type="button" (click)="getLoginDetails()" class="login_btn">Login</button>
+            </form>
+
+            <div class="footer_card">
+                <p>Not a member?</p>
+                <a routerLink="/login" (click)="isRegistered = false">Signup now</a>
+            </div>
+        } @else {
+            <form class="form">
+                <input type="text" name="username" [(ngModel)]="loginObj.username" placeholder="Username" class="username">
+                <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password" class="password">
+                <input type="password" name="cnfpassword" [(ngModel)]="loginObj.cnfpassword" placeholder="Confirm Password" class="cnfpassword">
+                
+                <button type="button" (click)="saveLoginDetails()" class="login_btn">Register</button>
+            </form>
+
+            <div class="footer_card">
+                <p>Already a member?</p>
+                <!-- <a href="javascript:void(0)" (click)="isRegistered = true">Login Here</a> -->
+                 <a routerLink="/login" (click)="isRegistered = true">Login Here</a>
+            </div>
+        }
     </div>
 </div>

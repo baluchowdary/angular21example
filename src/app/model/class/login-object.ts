@@ -1,12 +1,12 @@
 export class LoginObject {
     username: string;
     password: string;
-    role: string;
+    cnfpassword: string;
 
     constructor() {
         this.username = "";
         this.password = "";
-        this.role = "";
+        this.cnfpassword = "";
     }
      
 }

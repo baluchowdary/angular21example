@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginServices } from '../../services/login-services';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginObject } from '../../model/class/login-object';
 import { DbloginObject } from '../../model/class/dblogin-object';
+import { CommonModule } from '@angular/common';
 
 // Added FormsModule to enable ngModel binding
 @Component({
   selector: 'app-login-component',
-  imports: [FormsModule], 
+  imports: [FormsModule, CommonModule], 
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
 })
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
   loginObj: LoginObject = new LoginObject();
 
   dbLoginObj: DbloginObject = new DbloginObject();
+
+  isRegistered: boolean = false;
   
 
   constructor(private router: Router, private loginServices: LoginServices) {}
@@ -26,27 +29,98 @@ export class LoginComponent implements OnInit {
   }
 
   getLoginByUsername(username: string) {
-    //debugger;
+    debugger; 
     this.loginServices.loadLoginService(username).subscribe((data: DbloginObject) => {
       this.dbLoginObj = data;
       console.log('3-Database Login Details:', this.dbLoginObj);
+      const dbresponse = this.dbLoginObj;
+      if(dbresponse === null || dbresponse === undefined) {
+            console.log('No user found with the provided username.');
+            alert('No user found with the provided username.'); 
 
-      if(this.loginObj.username === this.dbLoginObj.username && this.loginObj.password === this.dbLoginObj.password) {
-       //debugger;
-        console.log('Login Successful');
-        this.router.navigateByUrl('/login');
-      } else {
-        console.log('Login Failed: Invalid username or password');
-        alert('Login Failed: Invalid username or password');
+       } else {            
+            if(this.loginObj.username === this.dbLoginObj.username && this.loginObj.password === this.dbLoginObj.password) {
+            //debugger;
+            console.log('Login Successful');
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            console.log('Login Failed: Invalid username or password');
+            alert('Login Failed: Invalid username or password');
+          }
       }
+
     });
 }
 
   getLoginDetails() {
-   // debugger;
-    console.log('1-Login Details:', this.loginObj);
-    this.getLoginByUsername(this.loginObj.username);
+   debugger;
+    console.log('Login Details:', this.loginObj);
+
+   const localCacheData = localStorage.getItem('loginData');
+
+   if(localCacheData !== null) {
+    debugger;
+    console.log('Parsed localCacheData', JSON.parse(localCacheData!));
+    const dataArray = JSON.parse(localCacheData!);
+    const checkUsernameExists = dataArray.some((obj: { username: string; }) => obj.username === this.loginObj.username);
+        if(!checkUsernameExists) {
+          this.getLoginByUsername(this.loginObj.username);
+        } else {
+          const matchedUser = dataArray.find((obj: { username: string; }) => obj.username === this.loginObj.username);
+              if(matchedUser) {  
+                console.log('Login Successful');
+                this.router.navigateByUrl('/dashboard');
+              } else {
+                console.log('Login Failed: Invalid username or password');
+                alert('Login Failed: Invalid username or password');
+              }
+
+        } //else
+        
+      } //cache
+
+    //this.getLoginByUsername(this.loginObj.username);
   }
+
+
+  saveLoginUser(loginObj: LoginObject) {
+    //debugger;
+    this.loginServices.saveLoginService(loginObj).subscribe((data: DbloginObject) => {
+      this.dbLoginObj = data;
+      console.log('3-Saved Login Details:', this.dbLoginObj);
+    });
+  }
+
+  saveLoginDetails() {
+   // debugger;
+   console.log(' saveLoginDetails - this.loginObj:', this.loginObj);
+   const localCacheData = localStorage.getItem('loginData');
+
+   if(localCacheData !== null) {
+    debugger;
+    console.log('Parsed localCacheData', JSON.parse(localCacheData!));
+    const dataArray = JSON.parse(localCacheData!);
+    const checkUsernameExists = dataArray.some((obj: { username: string; }) => obj.username === this.loginObj.username);
+        if(!checkUsernameExists) {
+        dataArray.push(this.loginObj);
+        localStorage.setItem('loginData', JSON.stringify(dataArray));
+        this.saveLoginUser(this.loginObj);
+        console.log('Registration Successful! You can now log in.');
+        alert('Registration Successful! You can now log in.');
+        } else {
+          console.log('Username already exists. Please choose a different username.');
+          alert('Username already exists. Please choose a different username.');
+        }
+
+  } else {
+    debugger;
+      console.log('No Local Storage Data Found -- else Block');
+      const newDataArray = [];
+      newDataArray.push(this.loginObj);
+      localStorage.setItem('loginData', JSON.stringify(newDataArray));
+  }
+  
+} //save
 
 }
 
