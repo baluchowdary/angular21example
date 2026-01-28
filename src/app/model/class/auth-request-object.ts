@@ -1,11 +1,9 @@
-export class DbloginObject {
+export class AuthRequestObject {
     username: string;
     password: string;
-    roles: string;
 
     constructor() {
         this.username = "";
         this.password = "";
-        this.roles = "";
     }
 }
