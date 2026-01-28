@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       const dbresponse = this.dbLoginObj;
       if(dbresponse === null || dbresponse === undefined) {
             console.log('No user found with the provided username.');
-            alert('No user found with the provided username.'); 
+            alert('No user found with the provided username'); 
 
        } else {            
             if(this.loginObj.username === this.dbLoginObj.username && this.loginObj.password === this.dbLoginObj.password) {
