@@ -23,8 +23,10 @@ export class DashboardComponent {
 
 
   getAllUsers() {
+    debugger;
     this.loginServices.loadAllUsers().subscribe((data: any[]) => {
       console.log('All Users Data:', data);
+      console.log('All Users Data Length:', data.forEach);
       this.allUsers = data;
     });
   }

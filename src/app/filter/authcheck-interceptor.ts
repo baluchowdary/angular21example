@@ -9,9 +9,8 @@ export const authCheckInterceptor: HttpInterceptorFn = (req, next) => {
   const authToken = localStorage.getItem('authdata');
 
   // Skip adding headers for login/register to avoid preflight issues on auth endpoints
-  //const isAuthRequest = req.url.endsWith('/saveusermodel') || req.url.endsWith('/authenticate');
-  const isAuthRequest = req.url.endsWith('/saveusermodel') 
-  || req.url.endsWith('/getusermodel') || req.url.endsWith('/authenticate');
+  //const isAuthRequest = req.url.endsWith('/saveusermodel') || req.url.endsWith('/authenticate') req.url.endsWith('/getusermodel');
+  const isAuthRequest = req.url.endsWith('/saveusermodel') || req.url.endsWith('/authenticate');
 
   let authReq = req;
   if (authToken && !isAuthRequest) {

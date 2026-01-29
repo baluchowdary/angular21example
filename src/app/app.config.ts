@@ -7,9 +7,7 @@ import { authCheckInterceptor } from './filter/authcheck-interceptor';
 
 export const appConfig: ApplicationConfig = {
   //we added provideHttpClient() here to make HttpClient available application-wide
-  providers: [provideHttpClient(
-    withInterceptors([authCheckInterceptor, authCheckInterceptor])
-  ),
+  providers: [provideHttpClient(withInterceptors([authCheckInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     
