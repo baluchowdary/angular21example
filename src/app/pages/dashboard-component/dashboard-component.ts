@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from "../../../../node_modules/@angular/router/types/_router_module-chunk";
+import { Component, computed, effect, signal } from '@angular/core';
 import { LoginServices } from '../../services/login-services';
+import { DashBoardData } from '../../model/class/dash-board-data';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -10,25 +10,60 @@ import { LoginServices } from '../../services/login-services';
 })
 export class DashboardComponent {
 
-  allUsers: any[] = [];
+  // allUsers: any[] = [];
+  allUsers = signal<DashBoardData[]>([]);
 
-  constructor(private loginServices: LoginServices) {} 
+  // 2. Pagination State (Signals are better here for reactivity)
+  currentPage = signal(1);
+  pageSize = signal(3);
+
+  // 3. Automatically updates whenever allUsers or pageSize changes
+  totalPages = computed(() => {
+    const total = Math.ceil(this.allUsers().length / this.pageSize());
+    return total > 0 ? total : 1;
+  });
+
+  // 4. Automatically updates the list whenever data OR page changes
+  paginatedUsers = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize();
+    const end = start + this.pageSize();
+    return this.allUsers().slice(start, end);
+  });
+
+
+  constructor(private loginServices: LoginServices) {
+    effect(() => {
+      if (this.currentPage() > this.totalPages()) {
+        this.currentPage.set(this.totalPages());
+      }
+    });
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
+  // Example of how you MUST update the data for expansion to work:
+  addNewUser(newUser: any) {
+    // This triggers the Dynamic Expansion
+    this.allUsers.update(users => [...users, newUser]);
+  }
 
   ngOnInit() {
-    // this.loginServices.loadAllUsers().subscribe((data: any[]) => {
-    //   this.allUsers = data;
-    // });
     this.getAllUsers();
-  } 
-
+  }
 
   getAllUsers() {
     debugger;
     this.loginServices.loadAllUsers().subscribe((data: any[]) => {
       console.log('All Users Data:', data);
-      console.log('All Users Data Length:', data.forEach);
-      this.allUsers = data;
+      console.log('All Users Data Length:', data.length);
+      this.allUsers.set(data);
     });
   }
 
 }
+
+

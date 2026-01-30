@@ -1,13 +1,13 @@
-export class LoginObject {
-[x: string]: any;
+export class DashBoardData {
+    id: number;
     username: string;
-    password: string;
+    password: string
     roles: string;
 
     constructor() {
+        this.id = 0;
         this.username = "";
         this.password = "";
         this.roles = "";
     }
-     
 }

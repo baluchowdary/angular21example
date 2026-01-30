@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { LoginObject } from '../model/class/login-object';
 import { DbloginObject } from '../model/class/dblogin-object';
 import { AuthRequestObject } from '../model/class/auth-request-object';
+import { DashBoardData } from '../model/class/dash-board-data';
 
 
 @Injectable({
@@ -27,9 +28,9 @@ export class LoginServices {
     return this.http.post<DbloginObject>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.SAVE_LOGIN_DETAILS, loginObj);
   }
 
-  loadAllUsers(): Observable<DbloginObject[]> {
+  loadAllUsers(): Observable<DashBoardData[]> {
     debugger;
-    return this.http.get<DbloginObject[]>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_ALL_USERS);
+    return this.http.get<DashBoardData[]>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_ALL_USERS);
   }
   
 }
