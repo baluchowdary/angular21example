@@ -9,23 +9,13 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class LayoutComponent {
 
-  constructor(private router: Router) {}
-//router = inject(Router);
-
-
-  // redirectLogin() {
-  //   debugger;
-  //   console.log('Redirecting to login page');
-  //   this.router.navigateByUrl('/login');
-  //   //window.location.href = '/login';
-  // }
+  constructor(private router: Router) { }
 
   logout() {
     debugger;
     console.log('Logging out and redirecting to login page');
     localStorage.removeItem('authdata');
     this.router.navigateByUrl('/login');
-    //window.location.href = '/login';
   }
 
 }

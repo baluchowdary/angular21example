@@ -28,12 +28,12 @@ export const authCheckInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 0) {
         console.error('CORS Error or Network Unreachable. Check Backend CORS config.');
       }
-      
+
       if (error.status === 401) {
         localStorage.removeItem('authdata');
         router.navigate(['/login']);
       }
-      
+
       return throwError(() => error);
     })
   );

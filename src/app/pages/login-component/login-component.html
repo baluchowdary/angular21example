@@ -4,7 +4,8 @@
 
         @if(isRegistered) {
         <form class="form">
-            <input type="text" name="username" [(ngModel)]="authRequestObject.username" placeholder="Username" class="username">
+            <input type="text" name="username" [(ngModel)]="authRequestObject.username" placeholder="Username"
+                class="username">
             <input type="password" name="password" [(ngModel)]="authRequestObject.password" placeholder="Password"
                 class="password">
 
@@ -13,16 +14,9 @@
 
         <div class="footer_card">
             <p>Not a member?</p>
-            <a routerLink="/login" (click)="isRegistered = false">Signup now</a>
+            <button><a routerLink="/login" (click)="isRegistered = false">Signup now</a></button>
         </div>
         } @else {
-        <!-- <form class="form">
-                <input type="text" name="username" [(ngModel)]="loginObj.username" placeholder="Username" class="username">
-                <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password" class="password">
-                <input type="password" name="cnfpassword" [(ngModel)]="loginObj.cnfpassword" placeholder="Confirm Password" class="cnfpassword">
-                
-                <button type="button" (click)="saveLoginDetails()" class="login_btn">Register</button>
-            </form> -->
 
         <form class="form">
             <input type="text" name="username" [(ngModel)]="loginObj.username" placeholder="Username" class="username">
@@ -52,7 +46,7 @@
         <div class="footer_card">
             <p>Already a member?</p>
             <!-- <a href="javascript:void(0)" (click)="isRegistered = true">Login Here</a> -->
-            <a routerLink="/login" (click)="isRegistered = true">Login Here</a>
+            <button><a routerLink="/login" (click)="isRegistered = true">Login Here</a></button>
         </div>
         }
     </div>

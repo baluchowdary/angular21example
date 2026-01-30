@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { CanActivateFn, Router} from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
 
@@ -11,6 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     console.log('AuthGuard: Access denied. Redirecting to login.');
     window.alert('Access denied. Please log in to continue.');
-    return false ;
+    return false;
   }
 };
