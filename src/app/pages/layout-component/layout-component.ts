@@ -3,7 +3,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout-component',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet],
   templateUrl: './layout-component.html',
   styleUrls: ['./layout-component.css'],
 })
@@ -13,9 +13,17 @@ export class LayoutComponent {
 //router = inject(Router);
 
 
-  redirectLogin() {
+  // redirectLogin() {
+  //   debugger;
+  //   console.log('Redirecting to login page');
+  //   this.router.navigateByUrl('/login');
+  //   //window.location.href = '/login';
+  // }
+
+  logout() {
     debugger;
-    console.log('Redirecting to login page');
+    console.log('Logging out and redirecting to login page');
+    localStorage.removeItem('authdata');
     this.router.navigateByUrl('/login');
     //window.location.href = '/login';
   }

@@ -1,11 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid bg-primary p-2">
     <div class="navbar-nav me-auto">
-      <a class="nav-link" routerLink="/login" (click)="redirectLogin()">Home</a>
+      <!-- <a class="nav-link" routerLink="/login" (click)="redirectLogin()">Home</a> -->
+       <a class="nav-link" routerLink="/home">Home</a>
       <a class="nav-link" routerLink="/page1">Page 1</a>
       <a class="nav-link" routerLink="/page2">Page 2</a>
       <a class="nav-link" routerLink="/page3">Page 3</a>
     </div>
+  
+    <div class="d-flex">
+      <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+      </div>
   </div>
 </nav>
 
