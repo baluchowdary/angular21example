@@ -32,5 +32,10 @@ export class LoginServices {
     debugger;
     return this.http.get<DashBoardData[]>(EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.GET_ALL_USERS);
   }
+
+  deleteUserRecord(userId: number): Observable<void> {
+    debugger;
+    return this.http.delete<void>(`${EnvironmentConst.HOST_URL + ConstantFile.LOGIN_API_Methods.DELETE_USER}/${userId}`);
+  }
   
 }

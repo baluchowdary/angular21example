@@ -64,6 +64,17 @@ export class DashboardComponent {
     });
   }
 
+
+  //delete user
+  onDeleteUser(userId: number) {
+    debugger;
+    this.loginServices.deleteUserRecord(userId).subscribe(() => {
+      console.log(`User with ID ${userId} deleted successfully.`);
+      // Update the local user list after deletion
+      this.allUsers.update(users => users.filter(user => user.id !== userId));
+    });
+  }
+
 }
 
 

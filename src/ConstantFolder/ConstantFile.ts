@@ -3,5 +3,6 @@ export const ConstantFile = {
             GET_LOGIN_DETAILS: '/users/authenticate',
             SAVE_LOGIN_DETAILS: '/users/saveusermodel',
             GET_ALL_USERS: '/users/getusermodel',
+            DELETE_USER: '/users'
         },
 };
